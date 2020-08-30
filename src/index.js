@@ -1,31 +1,56 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import PropTypes from "prop-types";
 import * as serviceWorker from './serviceWorker';
-import SoundComp from './Kek'
-import fs from 'fs'
-import raw from './sounds/raaw.mp3'
-import kalt from './sounds/kalt.mp3'
+import SoundComp from './SoundComponent'
 
 
 const head = <h1>Soundboard :D</h1>
 
-//const constFunc = () => <h1>constfunc</h1>
+const SB_CONTENT_URL = 'http://localhost:8080/sounds/'
+
 
 class Combiner extends React.Component {
+
+  static propTypes = {
+    soundsData: PropTypes.array
+  }
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      soundsData: [],
+    }
+
+  }
+
   render() {
-    var sounds = []
-    var soundCnt = 0;
-    sounds[0] = new SoundComp({sound: raw, name: "raw", srcurl: "localhost:3000/sounds/raaw.mp3"}).render()
-    sounds[1] = new SoundComp({sound: kalt, name: "kalt", srcurl: "localhost:3000/sounds/kalt.mp3"}).render()
-    
+    var renderData = this.state.soundsData.map(
+      (data, idx) => <SoundComp key={idx} soundURL={SB_CONTENT_URL + data.name} name={data.name}/>
+    )
+    if(renderData.length === 0) {
+      renderData = "No sounds to display ..."
+    }
     return (
       <div>
         {head}
-        {sounds}
+        {renderData}
       </div>
     )
+  }
+
+  componentDidMount() {
+    fetch(SB_CONTENT_URL)
+      .then((response) => response.json())
+      .then((responseJson) => {
+        this.setState({soundsData: responseJson})
+      })
+      .catch((error) => {
+        console.error(`Failed to fetch sound-data from server: ${error}`);
+      }
+    );
   }
 }
 
