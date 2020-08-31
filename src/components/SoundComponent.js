@@ -1,29 +1,30 @@
 import React from 'react';
-import PropTypes from "prop-types";
-//import mm from 'musicmetadata'
-//import http from 'http'
 
+import * as id3TagService from '../util/id3TagService'
 
 class SoundComp extends React.Component {
-
-  static propTypes = {
-    name: PropTypes.string,
-    url: PropTypes.any,
-  }
 
   constructor(props) {
     super(props)
     this.state = {
+      title: props.title,
       audio: new Audio(props.url),
     }
   }
 
-  render() {
-    //http.get(this.state.audio.src, res => mm(res, (err, data) => console.log(data)))
+  componentDidMount() {
+    id3TagService.fetchId3Data(this.props.url)
+      .then((id3Tags) => {
+        if(id3Tags.title.length) {
+          this.setState({title: id3Tags.title})
+        }
+      })
+  }
 
+  render() {
       return (
         <div className="sound">
-          <div>{this.props.name}</div>
+          <div>{this.state.title}</div>
           <div>{this.props.url}</div>
           <button onClick={() => {
             this.state.audio.play();

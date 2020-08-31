@@ -1,32 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import PropTypes from "prop-types";
 
 import * as serviceWorker from './serviceWorker';
 
 import SoundComp from './components/SoundComponent'
-import {fetchSounds} from './util/awsAdapter'
+import * as awsService from './util/awsService'
 
 
 class Combiner extends React.Component {
 
-  static propTypes = {
-    soundsData: PropTypes.array
-  }
-
   constructor(props) {
     super(props);
-
     this.state = {
       soundsData: [],
     }
-
   }
 
   render() {
     var renderData = this.state.soundsData
-  .map((data, idx) => {console.log(data); return <SoundComp key={idx} url={data.url} name={data.name}/>})
+      .map((data, idx) => <SoundComp key={idx} url={data.url} title={data.key}/>)
 
     if(renderData.length === 0) {
       renderData = <p>No sounds to display ...</p>
@@ -42,7 +35,8 @@ class Combiner extends React.Component {
   }
 
   componentDidMount() {
-    fetchSounds((data) => this.setState({soundsData: data}))
+    awsService.fetchSounds()
+      .then((data) => this.setState({soundsData: data}))
   }
   
 }
