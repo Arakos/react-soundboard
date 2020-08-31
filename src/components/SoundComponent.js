@@ -7,7 +7,11 @@ class SoundComp extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      title: props.title,
+      id3data: {
+        title: props.title,
+        artist: "",
+        album: "",
+      },
       audio: new Audio(props.url),
     }
   }
@@ -15,17 +19,16 @@ class SoundComp extends React.Component {
   componentDidMount() {
     id3TagService.fetchId3Data(this.props.url)
       .then((id3Tags) => {
-        if(id3Tags.title.length) {
-          this.setState({title: id3Tags.title})
+        if(id3Tags) {
+          this.setState({id3data: id3Tags})
         }
       })
   }
 
   render() {
       return (
-        <div className="sound">
-          <div>{this.state.title}</div>
-          <div>{this.props.url}</div>
+        <div className="sounds">
+          <p>{this.state.id3data.artist} - {this.state.id3data.title} ({this.state.id3data.album})</p>
           <button onClick={() => {
             this.state.audio.play();
            }}>Play</button>

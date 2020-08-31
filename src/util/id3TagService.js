@@ -8,13 +8,17 @@ export const fetchId3Data = (url) => {
         .then((data) => {
             console.log(data);
             return {
-                "title": data.toString()
+                "title": data.common.title,
+                "artist": data.common.artist,
+                "album": data.common.album,
             }
         })
         .catch((err) => {
             console.log("failed to fetch id3-tag data:" + err)
             return {
-                "title": ""
+                "title": "",
+                "artist": "",
+                "album": "",            
             }
         })
 }
