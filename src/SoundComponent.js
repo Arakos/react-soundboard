@@ -19,7 +19,7 @@ class SoundComp extends React.Component {
   }
 
   render() {
-    http.get(this.state.audio.src, res => mm(res, (err, data) => console.log(data)))
+    //http.get(this.state.audio.src, res => mm(res, (err, data) => console.log(data)))
 
       return (
         <div className="sound">

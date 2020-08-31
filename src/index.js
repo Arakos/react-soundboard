@@ -4,11 +4,14 @@ import './index.css';
 import PropTypes from "prop-types";
 import * as serviceWorker from './serviceWorker';
 import SoundComp from './SoundComponent'
+import xmlToJs from 'xml-js'
 
 
 const head = <h1>Soundboard :D</h1>
 
-const SB_CONTENT_URL = 'http://localhost:8080/sounds/'
+const SB_CONTENT_URL = "https://soundboard-sounddata.s3-eu-west-1.amazonaws.com"
+
+const SB_SOUNDS_KEY = "sounds/"
 
 
 class Combiner extends React.Component {
@@ -27,25 +30,31 @@ class Combiner extends React.Component {
   }
 
   render() {
-    var renderData = this.state.soundsData.map(
-      (data, idx) => <SoundComp key={idx} soundURL={SB_CONTENT_URL + data.name} name={data.name}/>
-    )
+    var renderData = this.state.soundsData
+      .map((data, idx) => <SoundComp key={idx} soundURL={SB_CONTENT_URL + "/" + data} name={data}/>)
+
     if(renderData.length === 0) {
-      renderData = "No sounds to display ..."
+      renderData = <p>No sounds to display ...</p>
     }
     return (
       <div>
         {head}
-        {renderData}
+        <div>
+          {renderData}
+        </div>
       </div>
     )
   }
 
   componentDidMount() {
     fetch(SB_CONTENT_URL)
-      .then((response) => response.json())
+      .then((response) => response.text())
+      .then((responseXML) => xmlToJs.xml2js(responseXML, {compact: true}))
       .then((responseJson) => {
-        this.setState({soundsData: responseJson})
+        var data = responseJson.ListBucketResult.Contents
+          .map((data) => data.Key._text)
+          .filter((key) => key.startsWith(SB_SOUNDS_KEY))
+        this.setState({soundsData: data})
       })
       .catch((error) => {
         console.error(`Failed to fetch sound-data from server: ${error}`);
