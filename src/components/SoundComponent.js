@@ -1,20 +1,20 @@
 import React from 'react';
 import PropTypes from "prop-types";
-import mm from 'musicmetadata'
-import http from 'http'
+//import mm from 'musicmetadata'
+//import http from 'http'
 
 
 class SoundComp extends React.Component {
 
   static propTypes = {
     name: PropTypes.string,
-    soundURL: PropTypes.any,
+    url: PropTypes.any,
   }
 
   constructor(props) {
     super(props)
     this.state = {
-      audio: new Audio(props.soundURL),
+      audio: new Audio(props.url),
     }
   }
 
@@ -24,7 +24,7 @@ class SoundComp extends React.Component {
       return (
         <div className="sound">
           <div>{this.props.name}</div>
-          <div>{this.props.soundURL}</div>
+          <div>{this.props.url}</div>
           <button onClick={() => {
             this.state.audio.play();
            }}>Play</button>
