@@ -24,11 +24,28 @@ jobs:
       
       - name: yarn build
         run: |
-         export PUBLIC_URL=$(echo ${GITHUB_REPOSITORY} | sed 's|.*\/\(.*\)|\1|')
-          echo var=${PUBLIC_URL}
+          # grep repository name as url prefix for pages deployment
+          export PUBLIC_URL=$(echo ${GITHUB_REPOSITORY} | sed 's|.*\/\(.*\)|\1|')
+          echo yarn build PUBLIC_URL=${PUBLIC_URL}
 
           yarn install
           yarn build
+
+      - uses: actions/upload-artifact@master
+        with:
+          name: soundboard-build
+          path: build
+
+  # job publish to put build result to github pages
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      
+      - uses: actions/download-artifact@master
+        with:
+          name: soundboard-build
+          path: build
 
       - name: Deploy to GitHub Pages
         if: success()
