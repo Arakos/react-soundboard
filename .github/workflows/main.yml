@@ -22,9 +22,9 @@ jobs:
     steps:
       - uses: actions/checkout@master
       
-      - run: env | sort
-      - run: echo var=${GITHUB_REPOSITORY}
-      - run: export PUBLIC_URL=${GITHUB_REPOSITORY_NAME_SLUG}
+      - run: export PUBLIC_URL=$(echo ${GITHUB_REPOSITORY} | sed 's|.*\/\(.*\)|\1|')
+      - run: echo var=${PUBLIC_URL}
+
       - run: yarn install
       - run: yarn build
       - run: ls
