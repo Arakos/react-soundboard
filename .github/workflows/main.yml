@@ -21,9 +21,10 @@ jobs:
         - /workspace:/github/workspace
     steps:
       - uses: actions/checkout@master
-
+      
+      - run: env | sort
+      - run: echo var=${GITHUB_REPOSITORY}
       - run: export PUBLIC_URL=${GITHUB_REPOSITORY_NAME_SLUG}
-      - run: echo reposlug=${GITHUB_REPOSITORY_NAME_SLUG}
       - run: yarn install
       - run: yarn build
       - run: ls
