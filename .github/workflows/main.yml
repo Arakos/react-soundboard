@@ -22,6 +22,8 @@ jobs:
     steps:
       - uses: actions/checkout@master
 
+      - run: export PUBLIC_URL=${GITHUB_REPOSITORY_NAME_SLUG}
+      - run: echo reposlug=${GITHUB_REPOSITORY_NAME_SLUG}
       - run: yarn install
       - run: yarn build
       - run: ls
