@@ -25,28 +25,18 @@ jobs:
       - name: yarn build
         run: |
           # grep repository name as url prefix for pages deployment
-          # export PUBLIC_URL=$(echo ${GITHUB_REPOSITORY} | sed 's|.*\/\(.*\)|\1|')
+          export PUBLIC_URL=$(echo "/${GITHUB_REPOSITORY}" | sed 's|.*\/\(.*\)|\1|')
           echo yarn build PUBLIC_URL=${PUBLIC_URL}
 
           yarn install
           yarn build
+          ls -hal
 
       - uses: actions/upload-artifact@master
         with:
           name: soundboard-build
           path: build
-
-  # job publish to put build result to github pages
-  publish:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      
-      - uses: actions/download-artifact@master
-        with:
-          name: soundboard-build
-          path: build
-
+          
       - name: Deploy to GitHub Pages
         if: success()
         uses: crazy-max/ghaction-github-pages@v2
@@ -55,3 +45,4 @@ jobs:
           build_dir: build
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
