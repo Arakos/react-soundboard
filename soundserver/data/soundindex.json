@@ -1,0 +1,10 @@
+{
+    "sounds": [
+        {
+            "url": "http://localhost:8080/data/sounds/raaw.mp3"
+        },
+        {
+            "url": "http://localhost:8080/data/sounds/kalt.mp3"
+        }
+    ]
+}
