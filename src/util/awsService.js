@@ -11,10 +11,7 @@ export const fetchSounds = () => {
         .then((responseJson) => processAWSdata(responseJson) )
         .catch((error) => {
           console.error(`Failed to fetch sound-data from server: ${error}`);
-          return {
-            "key": "unknown",
-            "url": "unknown",
-          }
+          return []
         })
 }
 
