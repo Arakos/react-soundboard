@@ -5,7 +5,7 @@ import './index.css';
 import * as serviceWorker from './serviceWorker';
 
 import SoundComp from './components/SoundComponent'
-import * as awsService from './util/awsService'
+import * as sis from './services/SoundIndexService'
 
 
 class Combiner extends React.Component {
@@ -19,7 +19,7 @@ class Combiner extends React.Component {
 
   render() {
     var renderData = this.state.soundsData
-      .map((data, idx) => <SoundComp key={idx} url={data.url} title={data.key}/>)
+      .map((data, idx) => <SoundComp key={idx} metadata={data}/>)
 
     if(renderData.length === 0) {
       renderData = <p>No sounds to display ...</p>
@@ -35,7 +35,7 @@ class Combiner extends React.Component {
   }
 
   componentDidMount() {
-    awsService.fetchSounds()
+    sis.fetchSoundIndex()
       .then((data) => this.setState({soundsData: data}))
   }
   

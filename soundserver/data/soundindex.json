@@ -1,9 +1,13 @@
 {
-    "sounds": [
+    "metadata": [
         {
+            "title": "RAAAAW",
+            "artist": "Andreas",
             "url": "http://localhost:8080/data/sounds/raaw.mp3"
         },
         {
+            "title": "Die wadde hier aufn Bus",
+            "artist": "Der Kaltmacher",
             "url": "http://localhost:8080/data/sounds/kalt.mp3"
         }
     ]
