@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/react-soundboard/static/css/main.5ecd60fb.chunk.css",
+    "main.js": "/react-soundboard/static/js/main.21918a15.chunk.js",
+    "main.js.map": "/react-soundboard/static/js/main.21918a15.chunk.js.map",
+    "runtime-main.js": "/react-soundboard/static/js/runtime-main.cbc2bdde.js",
+    "runtime-main.js.map": "/react-soundboard/static/js/runtime-main.cbc2bdde.js.map",
+    "static/js/2.9ba76106.chunk.js": "/react-soundboard/static/js/2.9ba76106.chunk.js",
+    "static/js/2.9ba76106.chunk.js.map": "/react-soundboard/static/js/2.9ba76106.chunk.js.map",
+    "index.html": "/react-soundboard/index.html",
+    "precache-manifest.3d4b3615cecf3d4470457433dd95a5e3.js": "/react-soundboard/precache-manifest.3d4b3615cecf3d4470457433dd95a5e3.js",
+    "service-worker.js": "/react-soundboard/service-worker.js",
+    "static/css/main.5ecd60fb.chunk.css.map": "/react-soundboard/static/css/main.5ecd60fb.chunk.css.map",
+    "static/js/2.9ba76106.chunk.js.LICENSE.txt": "/react-soundboard/static/js/2.9ba76106.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.cbc2bdde.js",
+    "static/js/2.9ba76106.chunk.js",
+    "static/css/main.5ecd60fb.chunk.css",
+    "static/js/main.21918a15.chunk.js"
+  ]
+}
